@@ -11,10 +11,18 @@ movies = [
         'id': 1,
         'title': 'Avatar',
         'overview': "En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...",
-        'year': '2009',
+        'year': 2009,
         'rating': 7.8,
         'category': 'Acción'    
-    } 
+    },
+    {
+        'id': 2,
+        'title': 'Avatar 2',
+        'overview': "En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...",
+        'year': 2022,
+        'rating': 7.8,
+        'category': 'Acción'    
+    }
 ]
 
 @app.get('/', tags= ['home'])
@@ -25,3 +33,21 @@ def message():
 @app.get('/movies', tags=['movies'])
 def get_movies():
     return movies
+
+@app.get('/movies/{id}', tags=['movies'])
+def get_movies(id: int):
+    for item in movies:
+        if item["id"] == id:
+            return item
+    return []
+
+@app.get('/movies/', tags=['movies'])
+def get_movies_by_category(category: str, year: int):
+    return category
+
+@app.get('/moviesquery/', tags=['movies'])
+def get_movies_by_category(category: int, year: int):
+    for item in movies:
+        if item["id"] == category and item["year"] == year:
+            return item
+    return ['Movie no Found']
